@@ -11,13 +11,11 @@ namespace MDDPlatform.SharedKernel.ValueObjects
             yield return Value;
         }
 
-        protected StringValueObject(string value){
-            Value = value;
-        }
-        public static StringValueObject Create(string value){
+        public StringValueObject(string value){
             if(value == null)
                 throw new NullValueException("Value should not be null");
-            return new StringValueObject(value);
+
+            Value = value;
         }
         public static IActionResult<StringValueObject> TryCreate(string value){
             if(value == null)
@@ -30,7 +28,7 @@ namespace MDDPlatform.SharedKernel.ValueObjects
             return valueObject.Value;
         }
         public static explicit operator StringValueObject(string value){
-            return Create(value);
+            return new StringValueObject(value);
         }                       
     }
 }

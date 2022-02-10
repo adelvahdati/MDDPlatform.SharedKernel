@@ -12,6 +12,11 @@ namespace MDDPlatform.SharedKernel.ValueObjects
         }
 
         protected NotEmptyString(string value){
+            if(value == null)
+                throw new NullValueException("Value should not be null");
+            if(value.Length==0)
+                throw new EmptyStringException("Value should not be empty");
+
             Value = value;
         }
         public static IActionResult<NotEmptyString> TryCreate(string value){
@@ -21,21 +26,12 @@ namespace MDDPlatform.SharedKernel.ValueObjects
             return TheAction.IsDone<NotEmptyString>(new NotEmptyString(value));
         }
 
-        public static NotEmptyString Create(string value){
-            if(value == null)
-                throw new NullValueException("Value should not be null");
-            if(value.Length==0)
-                throw new EmptyStringException("Value should not be empty");
-
-            return new NotEmptyString(value);
-        }
-
         public static implicit operator string(NotEmptyString valueObject)
         {
             return valueObject.Value;
         }
         public static explicit operator NotEmptyString(string value){
-            return Create(value);
+            return new NotEmptyString(value);
         }                       
     }
 }

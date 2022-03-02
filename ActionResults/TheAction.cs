@@ -1,3 +1,5 @@
+using MDDPlatform.SharedKernel.Exceptions;
+
 namespace MDDPlatform.SharedKernel.ActionResults
 {
     public class TheAction : IActionStatus
@@ -51,6 +53,8 @@ namespace MDDPlatform.SharedKernel.ActionResults
         {
             get
             {
+                if(Status == ActionStatus.Failure)
+                    throw new ActionNullResultException(Message);
                 return _result;
             }
         }

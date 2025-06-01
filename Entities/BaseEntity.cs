@@ -28,7 +28,7 @@ namespace MDDPlatform.SharedKernel.Entities
             if (item.IsTransient() || IsTransient())
                 return false;
             else
-                return item == this;                                   
+                return Equals(item.Id,this.Id);                                   
         }
 
         public override int GetHashCode()
